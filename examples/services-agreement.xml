@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eAgreement xmlns="urn:eagreement:0.1" version="0.1" profile="services">
+  <identity>
+    <agreementType>standalone_contract</agreementType>
+    <title>Software Maintenance and Support Agreement</title>
+    <language>en</language>
+    <status>draft</status>
+    <version>2026.1</version>
+    <signature><method>qes</method></signature>
+  </identity>
+  <parties>
+    <party>
+      <id>buyer</id><role>buyer</role>
+      <legalName>Buyer Ltd</legalName><registrationNo>10000000001</registrationNo>
+      <address>1 Example Street, Capital City</address><signatory>A. Director</signatory>
+    </party>
+    <party>
+      <id>supplier</id><role>supplier</role>
+      <legalName>Supplier Ltd</legalName><registrationNo>20000000002</registrationNo>
+      <address>2 Vendor Avenue, Capital City</address><signatory>B. Manager</signatory>
+    </party>
+  </parties>
+  <subject>
+    <summary>Maintenance, support and incremental development of the Buyer's information system.</summary>
+    <system>Information System</system>
+    <works>
+      <work><no>1</no><name>Corrective maintenance and incident resolution</name></work>
+      <work><no>2</no><name>Incremental development on request</name></work>
+    </works>
+  </subject>
+  <commercials>
+    <currency>EUR</currency><vatExcluded>true</vatExcluded>
+    <pricing><priceLine><model>time_and_materials</model><unit>person_hour</unit><rate>95.00</rate></priceLine></pricing>
+    <ceiling><unit>person_hour</unit><max>2000</max></ceiling>
+    <paymentTerms><daysAfterInvoice>30</daysAfterInvoice><dayType>calendar</dayType></paymentTerms>
+  </commercials>
+  <terms>
+    <clause>
+      <id>c-ip</id><type>obligation</type><bearer>supplier</bearer><beneficiary>buyer</beneficiary>
+      <category>ip</category><libraryRef>lib.ip.full-transfer@1.0</libraryRef><heading>Intellectual property</heading>
+    </clause>
+    <clause>
+      <id>c-conf</id><type>obligation</type><bearer>supplier</bearer><beneficiary>buyer</beneficiary>
+      <category>confidentiality</category><libraryRef>lib.confidentiality.mutual@1.0</libraryRef><heading>Confidentiality</heading>
+    </clause>
+    <clause>
+      <id>c-pen</id><type>obligation</type><bearer>supplier</bearer><beneficiary>buyer</beneficiary>
+      <category>penalty</category><libraryRef>lib.penalty.late@1.0</libraryRef><heading>Liquidated damages</heading>
+      <constraints><ratePerDay>0.005</ratePerDay><capOfContractValue>0.10</capOfContractValue></constraints>
+      <algorithmCardRef>uapf:card:late-penalty</algorithmCardRef>
+    </clause>
+    <clause>
+      <id>c-term</id><type>permission</type><bearer>buyer</bearer>
+      <category>termination</category><libraryRef>lib.termination.notice@1.0</libraryRef><heading>Termination</heading>
+    </clause>
+  </terms>
+  <serviceLevels>
+    <ticketingSystem><type>itsm</type><instanceRef>support-desk</instanceRef><workflowIsBinding>true</workflowIsBinding></ticketingSystem>
+    <calendars>
+      <calendar><id>business_hours</id><hours>09:00-18:00</hours><days>Mon-Fri</days></calendar>
+      <calendar><id>24x7</id><hours>00:00-24:00</hours><days>Mon-Sun</days></calendar>
+    </calendars>
+    <classes>
+      <class><id>P1</id><priority>1</priority><label>critical</label><calendar>24x7</calendar>
+        <responseTarget><value>1</value><unit>work_hour</unit></responseTarget>
+        <resolutionTarget><value>8</value><unit>work_hour</unit></resolutionTarget>
+        <channels><channel>phone</channel><channel>itsm</channel></channels></class>
+      <class><id>P2</id><priority>2</priority><label>high</label><calendar>business_hours</calendar>
+        <responseTarget><value>4</value><unit>work_hour</unit></responseTarget>
+        <resolutionTarget><value>3</value><unit>work_day</unit></resolutionTarget></class>
+      <class><id>P3</id><priority>3</priority><label>change_request</label><calendar>business_hours</calendar>
+        <responseTarget><value>5</value><unit>work_day</unit></responseTarget>
+        <resolutionTarget><unit>by_agreement</unit></resolutionTarget></class>
+    </classes>
+  </serviceLevels>
+  <lifecycle>
+    <effectiveFrom>on_signature</effectiveFrom>
+    <term><max>12</max><unit>month</unit></term>
+    <amendmentRule>bilateral_written_only</amendmentRule>
+    <noticeRules><registeredMailDeemedReceivedDays>7</registeredMailDeemedReceivedDays><electronicDeemedReceivedWorkingDays>2</electronicDeemedReceivedWorkingDays></noticeRules>
+    <disputeResolution>negotiation_then_courts</disputeResolution>
+    <governingLaw>EU</governingLaw>
+  </lifecycle>
+  <attachments>
+    <attachment><id>annex-1</id><title>Service Level Annex</title><documentType>serviceLevelAgreement</documentType></attachment>
+  </attachments>
+</eAgreement>

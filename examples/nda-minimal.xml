@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eAgreement xmlns="urn:eagreement:0.1" version="0.1" profile="nda">
+  <identity>
+    <agreementType>standalone_contract</agreementType>
+    <title>Mutual Non-Disclosure Agreement</title>
+    <language>en</language>
+    <status>draft</status>
+  </identity>
+  <parties>
+    <party><id>partyA</id><role>discloser</role><role>recipient</role><legalName>Organization A</legalName></party>
+    <party><id>partyB</id><role>discloser</role><role>recipient</role><legalName>Organization B</legalName></party>
+  </parties>
+  <terms>
+    <clause>
+      <id>c-conf</id><type>obligation</type><bearer>partyB</bearer><beneficiary>partyA</beneficiary>
+      <category>confidentiality</category><libraryRef>lib.confidentiality.mutual@1.0</libraryRef>
+      <heading>Confidentiality</heading>
+    </clause>
+    <clause>
+      <id>c-term</id><type>permission</type><bearer>partyA</bearer>
+      <category>termination</category><libraryRef>lib.termination.notice@1.0</libraryRef>
+      <heading>Termination</heading>
+    </clause>
+  </terms>
+</eAgreement>
