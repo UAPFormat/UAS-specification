@@ -67,5 +67,10 @@
       <sch:assert test="ea:parties/ea:party[ea:role = 'employee']">BR-009 (employment): a party with role 'employee' is required.</sch:assert>
     </sch:rule>
   </sch:pattern>
+  <sch:pattern id="governance">
+    <sch:rule context="ea:clause[ea:riskLevel = 'high']">
+      <sch:assert role="warning" test="ea:humanReviewedBy and normalize-space(ea:humanReviewedBy) != ''">BR-010: a high-risk clause SHOULD record humanReviewedBy.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
 
 </sch:schema>

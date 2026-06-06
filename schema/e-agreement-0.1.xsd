@@ -208,6 +208,26 @@
       <xs:element name="algorithmCardRef" type="xs:string" minOccurs="0"/>
       <xs:element name="sourceClause"    type="xs:string" minOccurs="0"/>
       <xs:element name="normativeRef"    type="xs:anyURI" minOccurs="0"/>
+      <!-- Clause governance / review / extraction metadata -->
+      <xs:element name="riskLevel"              type="ea:RiskLevel"       minOccurs="0"/>
+      <xs:element name="fallbackPosition"       type="xs:string"          minOccurs="0"/>
+      <xs:element name="negotiability"          type="ea:Negotiability"   minOccurs="0"/>
+      <xs:element name="ownerDepartment"        type="ea:OwnerDepartment" minOccurs="0"/>
+      <xs:element name="approvalRequired"       type="xs:string"          minOccurs="0"/>
+      <xs:element name="jurisdiction"           type="xs:string"          minOccurs="0"/>
+      <xs:element name="mandatoryByLaw"         type="xs:boolean"         minOccurs="0"/>
+      <xs:element name="playbookRuleRef"        type="xs:string"          minOccurs="0"/>
+      <xs:element name="aiExtractionConfidence" type="ea:ConfidenceScore" minOccurs="0"/>
+      <xs:element name="humanReviewedBy"        type="xs:string"          minOccurs="0"/>
+      <xs:element name="sourceLocation"         type="ea:SourceLocation"  minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SourceLocation">
+    <xs:sequence>
+      <xs:element name="document"  type="xs:string" minOccurs="0"/>
+      <xs:element name="page"      type="xs:string" minOccurs="0"/>
+      <xs:element name="paragraph" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -397,6 +417,35 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="framework"/><xs:enumeration value="amends"/>
       <xs:enumeration value="annex_of"/><xs:enumeration value="supersedes"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RiskLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="low"/><xs:enumeration value="medium"/><xs:enumeration value="high"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Negotiability">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="non_negotiable"/>
+      <xs:enumeration value="negotiable"/>
+      <xs:enumeration value="business_approval"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OwnerDepartment">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="legal"/><xs:enumeration value="finance"/>
+      <xs:enumeration value="hr"/><xs:enumeration value="procurement"/>
+      <xs:enumeration value="it"/><xs:enumeration value="sales"/>
+      <xs:enumeration value="compliance"/><xs:enumeration value="other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ConfidenceScore">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/><xs:maxInclusive value="1"/>
     </xs:restriction>
   </xs:simpleType>
 

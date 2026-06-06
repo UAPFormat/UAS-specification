@@ -48,6 +48,17 @@
       <category>penalty</category><libraryRef>lib.penalty.late@1.0</libraryRef><heading>Liquidated damages</heading>
       <constraints><ratePerDay>0.005</ratePerDay><capOfContractValue>0.10</capOfContractValue></constraints>
       <algorithmCardRef>uapf:card:late-penalty</algorithmCardRef>
+      <riskLevel>high</riskLevel>
+      <fallbackPosition>lib.penalty.late.capped-5pct@1.0</fallbackPosition>
+      <negotiability>business_approval</negotiability>
+      <ownerDepartment>legal</ownerDepartment>
+      <approvalRequired>Head of Legal</approvalRequired>
+      <jurisdiction>EU</jurisdiction>
+      <mandatoryByLaw>false</mandatoryByLaw>
+      <playbookRuleRef>playbook:remedies/liquidated-damages#R-12</playbookRuleRef>
+      <aiExtractionConfidence>0.94</aiExtractionConfidence>
+      <humanReviewedBy>J. Counsel</humanReviewedBy>
+      <sourceLocation><document>draft-v3.pdf</document><page>7</page><paragraph>9.2</paragraph></sourceLocation>
     </clause>
     <clause>
       <id>c-term</id><type>permission</type><bearer>buyer</bearer>

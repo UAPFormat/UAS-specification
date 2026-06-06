@@ -1,6 +1,8 @@
 # UAS — Universal Agreement Schema
 
-**Agreement‑as‑Code: one structured, machine‑readable representation for legal agreements.**
+## Legal Data Layer for AI‑Enabled Contract Creation, Review, Exchange, and Automation
+
+**Agreement‑as‑Code: a structured, validated, exchangeable data representation of legal agreements.** See [CONCEPT.md](CONCEPT.md) for the concept and business description.
 
 `version 0.1` · `status: draft / proposal` · `namespace: urn:eagreement:0.1` · part of the [UAPFormat](https://github.com/UAPFormat) ecosystem
 
@@ -124,8 +126,10 @@ Cardinality: `1` mandatory single · `0..1` optional single · `1..*` mandatory 
 `currency` (0..1), `vatExcluded` (0..1, boolean), `pricing/priceLine` (0..*: `model` code, `unit`, `rate` decimal), `ceiling` (0..1: `unit`, `max` decimal), `paymentTerms` (0..1: `daysAfterInvoice` integer, `dayType` code).
 
 ### terms/clause
-`id` (0..1), `type` (1, code), `bearer` (0..1, →party id), `beneficiary` (0..1, →party id), `category` (0..1, code), `libraryRef` (0..1, `id@version`), `heading` (0..1), `statement` (0..1, MAY contain `{{bindings}}`), `trigger` (0..1), `constraints` (0..1), `consequence` (0..1), `algorithmCardRef` (0..1), `sourceClause` (0..1), `normativeRef` (0..1, anyURI).
+**Legal content:** `id` (0..1), `type` (1, code), `bearer` (0..1, →party id), `beneficiary` (0..1, →party id), `category` (0..1, code), `libraryRef` (0..1, `id@version`), `heading` (0..1), `statement` (0..1, MAY contain `{{bindings}}`), `trigger` (0..1), `constraints` (0..1), `consequence` (0..1), `algorithmCardRef` (0..1), `sourceClause` (0..1), `normativeRef` (0..1, anyURI).
 `constraints` recognises `ratePerDay`, `capOfContractValue`, `deadlineValue`, `deadlineUnit`, and permits profile‑specific parameters via a `##other`‑namespace extension wildcard.
+
+**Governance, review and extraction metadata** (all 0..1): `riskLevel` (code: low/medium/high), `fallbackPosition` (approved alternative clause/library ref), `negotiability` (code: non_negotiable/negotiable/business_approval), `ownerDepartment` (code), `approvalRequired` (who must approve a deviation), `jurisdiction` (country/legal system), `mandatoryByLaw` (boolean), `playbookRuleRef` (link to a legal playbook rule), `aiExtractionConfidence` (0–1, for prose→UAS extraction), `humanReviewedBy` (accountability), `sourceLocation` (`document`, `page`, `paragraph` in the original). These describe the clause for review and automation; they do not alter its legal substance.
 
 ### serviceLevels
 `ticketingSystem` (0..1: `type`, `instanceRef`, `workflowIsBinding` boolean); `calendars/calendar` (0..*: `id`, `hours`, `days`); `classes/class` (0..*: `id`, `priority` integer, `label`, `calendar` →calendar id, `responseTarget`/`resolutionTarget` as `Duration`, `channels/channel` 0..*, `billing`, `notes`). `Duration` = `value` (decimal), `unit` (code), `note`.
@@ -148,6 +152,9 @@ Cardinality: `1` mandatory single · `0..1` optional single · `1..*` mandatory 
 - **DurationUnit:** `work_hour`, `work_day`, `calendar_hour`, `calendar_day`, `by_agreement`
 - **SignatureMethod:** `qes`, `aes`, `wet_ink`, `unsigned`
 - **RelationshipType:** `framework`, `amends`, `annex_of`, `supersedes`
+- **RiskLevel:** `low`, `medium`, `high`
+- **Negotiability:** `non_negotiable`, `negotiable`, `business_approval`
+- **OwnerDepartment:** `legal`, `finance`, `hr`, `procurement`, `it`, `sales`, `compliance`, `other`
 
 ## 8. Identifiers and references
 
@@ -199,6 +206,7 @@ A conformant instance MUST satisfy, beyond XSD validity:
 - **BR‑007** `capOfContractValue` MUST be in `0`–`1`; `ratePerDay` MUST be ≥ `0`.
 - **BR‑008** `class.priority` values SHOULD be unique (warning).
 - **BR‑009** where a profile declares a section or role mandatory, it MUST be present.
+- **BR‑010** a clause with `riskLevel` = `high` SHOULD record `humanReviewedBy` (warning).
 
 ## 12. Profiles
 
