@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Algomation. Part of UAS (Universal Agreement Schema), UAPFormat. -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:ea="urn:eagreement:0.1"
            targetNamespace="urn:eagreement:0.1"

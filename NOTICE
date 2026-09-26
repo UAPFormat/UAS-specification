@@ -1,0 +1,10 @@
+UAS — Universal Agreement Schema
+Copyright 2026 Algomation
+
+This product is part of the UAPFormat ecosystem (https://github.com/UAPFormat).
+
+Licensing:
+- Schema, business rules and examples (schema/, rules/, examples/) are licensed
+  under the Apache License, Version 2.0 (see LICENSE).
+- Specification text (README.md, CONCEPT.md) is licensed under the Creative
+  Commons Attribution 4.0 International License (see LICENSE-CC-BY-4.0).

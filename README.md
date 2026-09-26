@@ -4,7 +4,7 @@
 
 **Agreement‑as‑Code: a structured, validated, exchangeable data representation of legal agreements.** See [CONCEPT.md](CONCEPT.md) for the concept and business description.
 
-`version 0.1` · `status: draft / proposal` · `namespace: urn:eagreement:0.1` · part of the [UAPFormat](https://github.com/UAPFormat) ecosystem
+`version 0.1` · `status: draft / proposal` · `namespace: urn:eagreement:0.1` · `license: Apache-2.0 (schema) / CC-BY-4.0 (text)` · part of the [UAPFormat](https://github.com/UAPFormat) ecosystem
 
 ---
 
@@ -232,7 +232,11 @@ New document types are added as new profiles (and, if needed, new code values) �
 
 ```
 UAS-specification/
-├── README.md                       this specification
+├── README.md                       this specification (CC-BY-4.0)
+├── CONCEPT.md                      concept and business description (CC-BY-4.0)
+├── LICENSE                         Apache License 2.0 (schema, rules, examples)
+├── LICENSE-CC-BY-4.0               CC BY 4.0 (specification text)
+├── NOTICE                          copyright and licensing notice
 ├── schema/
 │   └── e-agreement-0.1.xsd         normative XML Schema (structure)
 ├── rules/
@@ -271,7 +275,16 @@ The namespace carries the major version (`urn:eagreement:0.1`). Backward‑compa
 
 ## 17. License
 
-To be finalized by UAPFormat. Proposed: **Apache‑2.0** for the schema and rule files, **CC‑BY‑4.0** for the specification text. A `LICENSE` file will be added once confirmed.
+Copyright 2026 Algomation.
+
+| Content | Files | License |
+| --- | --- | --- |
+| Schema, business rules, examples | `schema/`, `rules/`, `examples/` | [Apache License 2.0](LICENSE) |
+| Specification text | `README.md`, `CONCEPT.md` | [Creative Commons Attribution 4.0 International](LICENSE-CC-BY-4.0) |
+
+Each schema, rule and example file carries an `SPDX-License-Identifier: Apache-2.0` header. See [NOTICE](NOTICE).
+
+Anyone — public institutions, companies and individuals — may use, implement, modify and redistribute UAS under these terms, including in commercial and procurement contexts. Attribution: "UAS — Universal Agreement Schema, © Algomation, UAPFormat".
 
 ## 18. Contributing
 

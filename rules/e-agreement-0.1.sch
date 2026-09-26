@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Algomation. Part of UAS (Universal Agreement Schema), UAPFormat. -->
 <!--
   e-agreement 0.1 — business-rule layer (ISO Schematron, ISO/IEC 19757-3)
   Run with any ISO Schematron processor (lxml.isoschematron, Schxslt, Saxon, ph-schematron).

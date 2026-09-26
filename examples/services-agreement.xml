@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Algomation. Part of UAS (Universal Agreement Schema), UAPFormat. -->
 <eAgreement xmlns="urn:eagreement:0.1" version="0.1" profile="services">
   <identity>
     <agreementType>standalone_contract</agreementType>
