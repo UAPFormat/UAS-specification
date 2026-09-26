@@ -234,6 +234,7 @@ New document types are added as new profiles (and, if needed, new code values) �
 UAS-specification/
 ├── README.md                       this specification (CC-BY-4.0)
 ├── CONCEPT.md                      concept and business description (CC-BY-4.0)
+├── CONTRIBUTING.md                 how to extend and contribute
 ├── LICENSE                         Apache License 2.0 (schema, rules, examples)
 ├── LICENSE-CC-BY-4.0               CC BY 4.0 (specification text)
 ├── NOTICE                          copyright and licensing notice
@@ -288,4 +289,4 @@ Anyone — public institutions, companies and individuals — may use, implement
 
 ## 18. Contributing
 
-This is a draft proposal (v0.1). Issues and pull requests are welcome for: additional profiles and code values, the clause‑library format, the JSON binding, and the Schematron rule set. Proposed changes SHOULD include a validating example under `examples/`.
+This is a draft proposal (v0.1). Contributions are welcome — especially new profiles, code values, Schematron rules, the clause-library format and the JSON binding. Organisation-specific needs are added as profiles (named `org.<adopter>.<name>` until accepted), not by changing the core schema. See [CONTRIBUTING.md](CONTRIBUTING.md) for the process, the profile proposal checklist, conformance claims and contribution licensing.
