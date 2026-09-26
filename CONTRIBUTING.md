@@ -18,7 +18,7 @@ UAS is only useful if agreements stay exchangeable between organisations. Please
 1. **Use profiles for organisation- or domain-specific needs.** A profile constrains the model (mandatory sections, roles, rules) without changing the XSD. See README §12.
 2. **Use the `constraints` extension point** (`##other` namespace) for profile-specific computational parameters. Do not add elements to the core schema for them.
 3. **Do not change the core schema in a private copy while keeping the UAS namespace.** If you must change the core structure, use your own namespace (not `urn:eagreement:0.1`) so your documents are not mistaken for UAS instances — and consider proposing the change here instead.
-4. **Name adopter profiles by owner until accepted.** Use `org.<adopter>.<name>` (e.g. `org.ast.works`, `org.varam.<name>`). When a profile is accepted into the official list, it receives an unprefixed name (e.g. `works`) and the prefixed name remains documented as an alias.
+4. **Name adopter profiles by owner until accepted.** Use `org.<adopter>.<name>` (e.g. `org.example.works`). When a profile is accepted into the official list, it receives an unprefixed name (e.g. `works`) and the prefixed name remains documented as an alias.
 5. **Never put real agreements or personal data in examples.** Examples must be synthetic. Do not include real party names, registration numbers, bank details, signatures or contact data.
 
 ## 3. How to contribute
