@@ -221,6 +221,8 @@
       <xs:element name="statement" type="xs:string" minOccurs="0"/>
       <xs:element name="trigger" type="xs:string" minOccurs="0"/>
       <xs:element name="constraints" type="ea:Constraints" minOccurs="0"/>
+      <!-- 0.2: executable rules — one per measurable condition in the clause -->
+      <xs:element name="rule" type="ea:Rule" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="consequence" type="xs:string" minOccurs="0"/>
       <xs:element name="algorithmCardRef" type="xs:string" minOccurs="0"/>
       <xs:element name="sourceClause" type="xs:string" minOccurs="0"/>
@@ -259,6 +261,64 @@
       <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
     </xs:sequence>
   </xs:complexType>
+  <!-- 0.2: a rule is one measurable condition of a clause: metric operator value unit [of base] -> consequence(s).
+       Values are written as in the source text (a percentage as percent, not as a fraction). -->
+  <xs:complexType name="Rule">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="label" type="xs:string" minOccurs="0"/>
+      <xs:element name="metric" type="xs:token"/>
+      <xs:element name="appliesTo" type="ea:RuleScope" minOccurs="0"/>
+      <xs:element name="operator" type="ea:RuleOperator"/>
+      <xs:element name="value" type="xs:decimal"/>
+      <!-- true when the value follows from the wording but is not written as a number (e.g. "within the limit" = 100 %) -->
+      <xs:element name="implied" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="unit" type="ea:RuleUnit"/>
+      <xs:element name="per" type="ea:DurationUnit" minOccurs="0"/>
+      <xs:element name="base" type="ea:RuleBase" minOccurs="0"/>
+      <xs:element name="consequence" type="ea:RuleConsequence" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="sourceVri" type="ea:VriRef" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="RuleOperator">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="lt"/><xs:enumeration value="lte"/><xs:enumeration value="eq"/>
+      <xs:enumeration value="gte"/><xs:enumeration value="gt"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleScope">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="contract"/><xs:enumeration value="work_item"/><xs:enumeration value="delivery"/>
+      <xs:enumeration value="invoice"/><xs:enumeration value="estimate"/><xs:enumeration value="incident"/>
+      <xs:enumeration value="period"/><xs:enumeration value="party"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleBase">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="contract_value"/><xs:enumeration value="contract_hours"/>
+      <xs:enumeration value="work_amount"/><xs:enumeration value="work_hours"/>
+      <xs:enumeration value="approved_limit"/><xs:enumeration value="buyer_estimate"/>
+      <xs:enumeration value="outstanding_obligation"/><xs:enumeration value="unpaid_amount"/>
+      <xs:enumeration value="deliveries"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleConsequence">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="no_payment"/><xs:enumeration value="stop_work"/>
+      <xs:enumeration value="require_approval"/><xs:enumeration value="require_justification"/>
+      <xs:enumeration value="require_milestones"/><xs:enumeration value="penalty"/>
+      <xs:enumeration value="termination_right"/><xs:enumeration value="extend_deadlines"/>
+      <xs:enumeration value="review"/><xs:enumeration value="escalate"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleExtraUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="minute"/><xs:enumeration value="fraction"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleUnit">
+    <xs:union memberTypes="ea:DurationUnit ea:ThresholdUnit ea:RuleExtraUnit"/>
+  </xs:simpleType>
   <!-- ======================== SERVICE LEVELS ====================== -->
   <xs:complexType name="ServiceLevels">
     <xs:sequence>

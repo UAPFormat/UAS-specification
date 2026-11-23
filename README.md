@@ -319,3 +319,25 @@ New business rules ([`rules/e-agreement-0.2.sch`](rules/e-agreement-0.2.sch)):
 
 **Reverse check.** Because every value names its unit, a validator can re-read each unit and confirm that the field says what the text says — the instance is checked against its source, not only against the schema.
 
+### 16.x Rules — clauses as executable conditions (0.2 draft)
+
+A clause keeps its wording (`heading`, `statement`). Each measurable condition in it is a `rule`:
+
+| Element | Meaning |
+|---|---|
+| `metric` | What is measured (open vocabulary, e.g. `paid_hours`, `penalty_cap`, `admin_share`, `invoice_payment_time`) |
+| `appliesTo` | `contract`, `work_item`, `delivery`, `invoice`, `estimate`, `incident`, `period`, `party` |
+| `operator`, `value`, `unit` | `lt` `lte` `eq` `gte` `gt`; the number as written in the source; any duration or threshold unit, `minute`, `fraction` |
+| `per` | Time unit for rates (`penalty_rate` per `calendar_day`) |
+| `base` | What a relative value is a share of: `contract_value`, `contract_hours`, `work_amount`, `work_hours`, `approved_limit`, `buyer_estimate`, `outstanding_obligation`, `unpaid_amount`, `deliveries` |
+| `consequence` | Zero or more of `no_payment`, `stop_work`, `require_approval`, `require_justification`, `require_milestones`, `penalty`, `termination_right`, `extend_deadlines`, `review`, `escalate` |
+| `implied` | `true` when the value follows from the wording but is not written as a number ("within the limit" = 100 % of `approved_limit`) |
+
+```xml
+<rule><metric>hours_over_limit</metric><appliesTo>work_item</appliesTo><operator>gt</operator><value>10</value>
+  <unit>percent</unit><base>approved_limit</base><consequence>stop_work</consequence><consequence>require_approval</consequence></rule>
+```
+
+Rules: BR-014 (percent 0–100, fraction 0–1), BR-015 (a percent or fraction rule MUST name its `base`), BR-016 (warning: a rule SHOULD be traceable through its own or its clause's `sourceVri`).
+`constraints/capOfContractValue` is kept for 0.1 compatibility; where the cap is not a share of the contract value, use a `penalty_cap` rule with the right `base`.
+

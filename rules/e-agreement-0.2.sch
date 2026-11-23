@@ -88,6 +88,12 @@
       <sch:assert test="ea:thresholdUnit">BR-013: thresholdValue MUST have a thresholdUnit.</sch:assert>
       <sch:assert test="ea:thresholdUnit != 'percent' or (ea:thresholdValue &gt;= 0 and ea:thresholdValue &lt;= 100)">BR-013: a percent threshold MUST be between 0 and 100.</sch:assert>
     </sch:rule>
+    <sch:rule context="ea:rule">
+      <sch:assert test="ea:unit != 'percent' or (ea:value &gt;= 0 and ea:value &lt;= 100)">BR-014: a percent rule value MUST be between 0 and 100.</sch:assert>
+      <sch:assert test="ea:unit != 'fraction' or (ea:value &gt;= 0 and ea:value &lt;= 1)">BR-014: a fraction rule value MUST be between 0 and 1.</sch:assert>
+      <sch:assert test="not(ea:unit = 'percent' or ea:unit = 'fraction') or ea:base">BR-015: a relative rule (percent or fraction) MUST name its base.</sch:assert>
+      <sch:assert role="warning" test="ea:sourceVri or ../ea:sourceVri">BR-016: a rule SHOULD carry sourceVri (its own or its clause's).</sch:assert>
+    </sch:rule>
   </sch:pattern>
 
 </sch:schema>
