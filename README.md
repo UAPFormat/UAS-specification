@@ -4,7 +4,7 @@
 
 **Agreement‑as‑Code: a structured, validated, exchangeable data representation of legal agreements.** See [CONCEPT.md](CONCEPT.md) for the concept and business description.
 
-`version 0.1` · `status: draft / proposal` · `namespace: urn:eagreement:0.1` · `license: Apache-2.0 (schema) / CC-BY-4.0 (text)` · part of the [UAPFormat](https://github.com/UAPFormat) ecosystem
+`version 0.1` (0.2 draft: [source traceability](#16-version-02-draft--source-traceability)) · `status: draft / proposal` · `namespace: urn:eagreement:0.1` · `license: Apache-2.0 (schema) / CC-BY-4.0 (text)` · part of the [UAPFormat](https://github.com/UAPFormat) ecosystem
 
 ---
 
@@ -239,9 +239,11 @@ UAS-specification/
 ├── LICENSE-CC-BY-4.0               CC BY 4.0 (specification text)
 ├── NOTICE                          copyright and licensing notice
 ├── schema/
-│   └── e-agreement-0.1.xsd         normative XML Schema (structure)
+│   ├── e-agreement-0.1.xsd         normative XML Schema (structure)
+│   └── e-agreement-0.2.xsd         0.2 draft: 0.1 + source traceability
 ├── rules/
-│   └── e-agreement-0.1.sch         ISO Schematron (business rules)
+│   ├── e-agreement-0.1.sch         ISO Schematron (business rules)
+│   └── e-agreement-0.2.sch         0.2 draft: 0.1 rules + BR-011–BR-013
 └── examples/
     ├── nda-minimal.xml             minimal 'nda' profile instance
     └── services-agreement.xml      generic 'services' profile instance
@@ -290,3 +292,30 @@ Anyone — public institutions, companies and individuals — may use, implement
 ## 18. Contributing
 
 This is a draft proposal (v0.1). Contributions are welcome — especially new profiles, code values, Schematron rules, the clause-library format and the JSON binding. Organisation-specific needs are added as profiles (named `org.<adopter>.<name>` until accepted), not by changing the core schema. See [CONTRIBUTING.md](CONTRIBUTING.md) for the process, the profile proposal checklist, conformance claims and contribution licensing.
+
+## 16. Version 0.2 (draft) — source traceability
+
+UAS turns agreement text into typed fields. 0.2 makes that conversion traceable: every field can name the exact unit of the agreement text it was taken from.
+
+The text itself is **not** part of a UAS instance. It is kept as a separate dataset, split into units (points, sub-points, annex sections, table rows), each with a **VRI** — Vienotais Resursu Identifikators, a stable element-level identifier (`<jurisdiction>-<family>-<key>.<path>[@<version>]`), e.g. `lv-lig-22-0558-2-l1-26-54.p4.4` for point 4.4 of an agreement. UAS points into that text; it does not copy it.
+
+Namespace `urn:eagreement:0.2`, root `version="0.2"`. Changes against 0.1 — all additive:
+
+| Change | Where | Purpose |
+|---|---|---|
+| `source` (new, optional, after `identity`) | root | `documentVri` (REQUIRED), `file`, `sha256`, `textRef` — the text this instance was derived from |
+| `sourceVri` (optional, repeatable) | `identity`, `parent`, `procurement`, `party`, `subject`, `work`, `priceLine`, `ceiling`, `paymentTerms`, `clause`, `calendar`, `class`, `lifecycle`, `term`, `attachment` | VRI of the text unit(s) the value was taken from |
+| `thresholdValue`, `thresholdUnit` | `constraints` | numeric thresholds stated in the text (e.g. 25 % estimate deviation, 80 h, 4 weeks), unit `percent`, `work_hour`, `calendar_week`, `currency`, `count` |
+| `calendar_week`, `calendar_month` | `DurationUnit` | warranties and terms stated in weeks and months |
+| `VriRef`, `Sha256` | simple types | VRI and SHA-256 formats |
+
+`clause.sourceLocation` stays for 0.1 compatibility; `sourceVri` replaces it where the text has VRI units.
+
+New business rules ([`rules/e-agreement-0.2.sch`](rules/e-agreement-0.2.sch)):
+
+- **BR‑011** when `source/documentVri` is present, every `sourceVri` MUST be that document VRI or one of its units.
+- **BR‑012** when `source/documentVri` is present, every `clause` SHOULD carry `sourceVri` (warning).
+- **BR‑013** `thresholdValue` MUST have `thresholdUnit`; a `percent` threshold MUST be between 0 and 100.
+
+**Reverse check.** Because every value names its unit, a validator can re-read each unit and confirm that the field says what the text says — the instance is checked against its source, not only against the schema.
+
